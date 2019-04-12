@@ -22,12 +22,16 @@ export function loadPreferences() {
 export function savePreferences({
   destinationPreferences,
   customPreferences,
-  cookieDomain
+  cookieDomain,
+  identifyOptions
 }) {
-  window.analytics.identify({
-    destinationTrackingPreferences: destinationPreferences,
-    customTrackingPreferences: customPreferences
-  })
+  window.analytics.identify(
+    {
+      destinationTrackingPreferences: destinationPreferences,
+      customTrackingPreferences: customPreferences
+    },
+    identifyOptions
+  )
 
   const domain = cookieDomain || topDomain(window.location.href)
   const value = {

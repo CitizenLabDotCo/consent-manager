@@ -85,3 +85,13 @@ test.serial('savePreferences() sets the cookie domain', t => {
 
   t.true(global.document.cookie.includes('domain=example.com'))
 })
+
+test.serial('savePreferences() passes on identifyOptions to indentify', t => {
+  const ajsIdentify = sinon.spy()
+  global.window.analytics = {identify: ajsIdentify}
+
+  savePreferences({identifyOptions: {integrations: {Intercom: false}}})
+
+  t.true(ajsIdentify.calledOnce)
+  t.deepEqual(ajsIdentify.args[0][1], {integrations: {Intercom: false}})
+})
